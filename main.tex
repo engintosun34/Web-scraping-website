@@ -1,0 +1,348 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{indentfirst}
+\usepackage{multicol}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Web Scraping E-ticaret Sitesi Projesi
+\\
+}
+
+\author{\IEEEauthorblockN{\large İhsak Erdoğan}
+\IEEEauthorblockA{\textit{} \\
+\textit{\large200202035}\\
+}
+\and
+\IEEEauthorblockN{\large Engin Tosun}
+\IEEEauthorblockA{\textit{} \\
+\textit{\large200202028}\\
+}
+}
+
+\maketitle
+
+\section{Özet}
+Bu rapor Yazılım Laboratuvarı I Dersinin 1. Projesini açıklamak ve sunumunu gerçekleştirmek amacıyla oluşturulmuştur. Bu proje Java dilinde Netbeans ortamında geliştirilmiştir.Raporda projenin tanımı, özet, yöntem,karşılaşılan sorunlar ve çözümler,sözde kod, sonuç bölümünden oluşmaktadır. Proje aşamasında yararlanılan kaynaklar raporun son bölümünde bulunmaktadır. 
+
+
+\section{Proje Tanımı}
+ Trendyol, Hepsiburada, n11, Amazon, gibi e ticaret sitelerinden istenilen ürüne ait bilgilerin yer aldığı 
+bir veritabanı oluşturulacak ve bu veritabanından istenilen bilgileri web sayfası üzerinde gösterilecektir.\\
+
+Projenin amacı: \\
+1. Web scraping ile farklı alışveriş sitelerinden istenilen ürün hakkında bilgi elde etmek. 
+2. Bir uygulama içerisinde istenilen özellikteki ürünlerin filtrelenmesi ve sıralanması becerisini 
+geliştirmek,
+3. Dinamik özelliklere sahip bir program geliştirmek
+4. Web kodlama hakkında bilgi ve beceriye sahip olmak \\
+
+Web Scraping:\\
+1. 4 adet E-Ticaret (Trendyol, Hepsiburada, n11, Amazon) sitesi üzerinden web scraping kullanılarak bilgisayar(notebook) kategorisine ait bilgiler alınacaktır. Ayrıca E-ticaret sitelerine benzer yapıda kendiniz bir web sitesi oluşturacak (sadece bilgisayar(notebook) kategorisi 
+olacak) ve web scraping kullanarak sitedeki bilgiler alınacaktır.\\
+2. Web Scraping kullanılırken siteye ait html bilgiler veya siteye request isteği ile bilgiler alınmalıdır.\\
+
+Veritabanı:\\
+1. Web scraping ile elde edilen veriler veritabanına kaydedilecektir.\\
+2. Kullanılacak veritabanı proje uygun olarak herhangi bir tanesini kullanmak.\\
+3. Veritabanında aşağıdaki tabloda belirtilen özellik bilgilerinin kullanılması gerekmektedir.\\ 
+Veritabanındaki tabloların normalizasyon kurallarına uygun olacak şekilde tasarlanması ve organize edilmelidir.\\
+
+Web Sayfası:\\
+1. Farklı sitelerden çekilen ürün bilgilerinin gösterilmesi için bir web sayfası oluşturmanız beklenmektedir. Örnek web sayfası aşağıdaki resimde görülmektedir.\\
+2. Bu sayfa ilk açıldığında veritabanında yer alan tüm kayıtlar listelenmelidir.\\
+3. Listeleme işleminde ürün bilgilerinin yer aldığı ana başlık bulunmalıdır. Herhangi bir ürün başlığına tıklandığında ürün hakkındaki bilgilerin (fiyat ve ürün özellikleri) olduğu sayfaya yönlendirilecektir.\\
+4. Listeleme işleminde ürüne ait en düşük 3 fiyat ve bunların ait olduğu E- ticaret sitelerinin linkleri isim ve logolarıyla birlikte yer alacaktır. İsim veya logonun üzerine tıklayınca
+ürünün bulunduğu E-ticaret sitesinin sayfası açılacaktır.\\
+
+5. Web sayfasından herhangi bir ürünle ilgili dinamik arama işlemi yapılabilmelidir. Bu arama alanında bir ürünün isim, model ya da bulunduğu E-ticaret sitesine göre yapılmalıdır. Ayrıca Arama sırasında yazım yanlışı olması durumunda sistem düzeltilmiş öneride bulunmalıdır. Örnek: hepsi burada -- yazımı düzeltilmiş sonuçları görüyorsunuz: Hepsiburada şeklinde olmalıdır.\\
+6. Web sayfasında dinamik filtreleme işlemi de ayrıca yer almalıdır. Filtreleme işlemi veritabanında yer alan ürünün tüm özellikleri için uygulanabilir olmalıdır. Yukarıdaki görselde 
+e-ticaret sitelerinde bulunan laptop ürünleri markasına göre örnek olarak filtrelenmiştir.\\
+7. Web sayfasında en düşük fiyattan en yüksek fiyata, en yüksek fiyattan en düşük fiyata ve en yüksek puandan en düşük fiyata şeklinde sıralama işlemleri yapılabilmelidir. Laptop bilgilerinin yer aldığı alanda fiyat bilgisi için de aynı durum geçerli olacaktır.\\
+Duplicate :\\
+1. Scraping ile çekilen bilgiler güncellenmesi gerekmektedir. Güncel bilgiler veritabanında kaydedilmelidir.\\
+2. Kaydedilen veriler ile önceki kayıtlı veriler benzer bilgiler içermektedir. Bundan dolayı Duplicate oluşmaması için veritabanında kontrol işlemi yapılmalı ve veritabanı ile web 
+sayfasında sadece güncel bilgiler yer almalıdır.\\
+3. Veritabanında Near Duplicate kontrolü yapılacaktır. Veritabanında Benzer isimlerde kaydedilmiş birden fazla kayıt olabilir. Bu durum aynı isimlerde farklı kayıtlar olduğu anlamına gelmektedir. Örneğin bir web sitesinden ürünün işletim sistemi bilgisi Dos olarak diğerinden ise FreeDos olarak kayıt edildiğini düşünelim. Bu iki durum aynı bilgiyi temsil etmektedir. Bundan dolayı Dos olanı diğeri unique bir etiket altında temsil edilmelidir.\\
+\\
+
+
+
+\section{Yöntem}
+Projede istenen isterler için Web programlama ve web scraping hakkında araştırma yapıldı ve programlama için html,css ve js syntaxlarına bakıldı ve koda uygulandı.\\Proje site VS code üzerinde web scraping netbeans üzerinde kodlandı.\\
+Frontend dolayında web arayüzü geliştirmek için HTML ile taslak oluşturuldu. CSS ile arayüze renk ve pozisyon verildi biçimlendirildi. Js kullanılarak infinite scroll özelliği siteye kazandırıldı. Anasayfa Kategoriler bloku siteye kodlandı. Sonrasında search butonu internetten kaynak site bulunup eklendi. Filtreleme çubuğu kodlandı. Son olarak product card siteye eklendi. Java ve jsoup kütüphanesi kullanılarak Vatan, Trendyol, n11 ve teknosadan laptop özellikleri, laptop fotoğrafı ve rate'i çekildi. Veritabanı olarak PostgreSql kullanıldı.Laptop özellikleri (marka, modelno, isletimsistemi, islemcitipi, islemcinesli, ram, diskboyutu, diskturu, ekranboyutu, puani, fiyati, sitef, link, image) şeklinde database'e kaydedildi.
+\begin{flushleft}
+\textbf{Projede Yapılması istenen isterler hakkında\\}	
+\end{flushleft}
+
+Projede Yapılması İstenen İsterler Hakkında:\\
+1. Kendinize ait bir E-ticaret sitesi oluşturmalısınız ve bu site Admin tarafından güncellenebilir olmalıdır. Sitede yapılacak değişiklerde (
+● Bir notebook ürünün fiyatının değiştirilmesi 
+● Notebook ürünü ait bir kaydın kaldırılması 
+● Yeni notebook ürünün eklenmesi 
+● Notebook ürünün puanında değişiklik yapılması 
+● Ürün bilgilerinin güncellenmesi
+) bilgilerin web scraping ile çekilmesi gerekmektedir. Alınan tüm bu değişikler farklı sitelerdeki ürünlerin listelendiği diğer web sitesinde anlık olarak gösterilmelidir.\\
+2. Ürün bilgisinin gösterildiği web sayfasında tüm notebook ürünlerinin listelenmesi ve ürün bilgilerinin yer aldığı ana başlıklarının oluşturulması gerekmektedir. Bu başlığa tıklayınca ürün hakkında bilgilerin (fiyat bilgileri dahil) olduğu sayfa açılmalıdır. Ayrıca ürünlerin 
+listelendiği sayfadaki E-ticaret linki üzerine tıklayınca ürünün bu E-ticaret sitesindeki sayfasına kullanıcı yönlendirilmelidir.\\
+3. a) Dinamik arama ile (yukarıda istenilen tüm arama kriterleri dahil olacak şekilde) Asus ..vb modele göre arama işleminin yapılması \\
+b) Dinamik arama ile (yukarıda istenilen tüm arama kriterleri dahil olacak şekilde) hepsiburada ..vb E-ticaret sitelerinin aranması\\
+4. a) Ürün bilgilerinin gösterildiği web sayfası üzerinde Filtreleme işleminin yapılması \\
+b) Fiyat bilgisine göre küçükten büyüğe veya büyükten küçüğü sıralama ayrıca puanı yüksek olan ürüne göre sıralama işleminin yapılması \\
+5. Sizin oluşturacağınız E- Ticaret sitesine kayıtlı olan bir ürünün aynı bilgileri ile kayıt edilmeli ve veritabanında Duplicate Kontrolü yapılmalıdır.\\
+6. Sizin oluşturacağınız E- Ticaret sitesinde iki farklı kayıt işleminin yapılması ve Near Duplicate kontrolünün yapılması \\
+
+\\
+
+
+\section{Sözde Kod}
+\begin{verbatim}
+Java Web Scraping Sözde Kodu:\\
+package jsoupdemo;
+
+import com.sun.source.tree.Tree;
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+//database için
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Timestamp;
+import java.sql.Statement;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+(kullanılan kütüphaneler)
+
+public class JsoupRun{
+    
+    public static void main(String[] args) throws 
+    IOException {
+        
+       Thread t1;
+     t1 = new Thread(){
+    @Override
+     void run(connection kontrolü){
+      try {
+         //n11();
+          trendyol();
+         //teknosa();  //bunu eklemedim
+         //vatan();
+      } catch (IOException ex) {
+ logla(JsoupRun.class.getName()).log(Level.SEVERE, null, ex);
+     
+        t1.başlat()
+        
+     void veritabanına-ekle(){
+            
+      dene {
+          //burda driverimizi clasa tanıtıyoruz
+             driverıclassatanıt("org.postgresql.Driver");
+            
+          //deneme adlı veri tabanına bağlanma gerçekleştiriliyor
+          Bağlantı("jdbc:postgresql://localhost:5432/
+          Deneme","postgres","546172");
+            
+     data girişi(""""") 
+    değerler('""""""""")";
+      Statement st=connection.createStatement()
+        st.executeUpdate(query);
+         System.out.println("basarili");
+            
+            
+        } tut(Exception e) {
+            Yazdır(e.getLocalizedMessage());
+            
+        }
+   }
+Mağaza verilerini çekme kaydetme() 
+ throws IOException{
+          
+
+        
+String-dizi= yeni dizi-String();
+        
+ String tanımlama
+ for(int i=1;i<=10;i++){
+             
+    //veri alınacak siteye bağlanılıyor
+     Document d=Jsoup.bağlantı().timeout(000).get();
+         
+        
+liste_tamamı_seç("div.prdct-cntnr-wrppr");
+         
+burada listenin içinden bir element çekiliyor ve 
+for içinde çekilen element için
+veriler çekiliyor.
+for(element için veri çek)){
+             
+ String link=" link-shop"+element.select().
+ attr("href");
+                
+   Arrayliste ekle(link);
+                
+ String resim_url="link"+element-seç(""
+yazdır(link+"\n"+image_url+"\n"+ozellik+"\n"+fiyat);
+       
+        
+ String p1=element.seç("element-name")
+ .select("div.product-down")
+ .seç("div.ratings-container").
+ seç("div.ratings div.star-w:nth-child(1) div.full").bağla("style");
+        
+                
+      
+     String newPuan=Double.toString(puan);
+                 
+  resimekle(image_url);
+  fiyataArrayList.fiyat-ekle;
+   puanArrayList.puan-ekle;
+ (Diğer sitelerde de benzer algoritma)       
+    
+ \\
+ \\
+ \\
+ 
+ 
+ 
+ 
+ 
+
+   Product Card Yapısı:
+  <div class="container d-flex justify-content-center mt-50 mb-50">
+
+   <div class="row">
+     <div class="col-md-4 mt-2">
+
+
+    <div class="card">
+      <div class="card-body">
+     <div class="card-img-actions">
+
+      <img src="image linki"
+        class="card-img img-fluid" width="96" height="350" alt="">
+
+
+     </div>
+     </div>
+
+    <div class="card-body bg-light text-center">
+     <div class="mb-2">
+    <h6 class="font-weight-semibold mb-2">
+       <a href="product link" class="text-default mb-2" data-abc="true">Product Name</a>
+                                                   
+                                    </h6>
+ <a href="#" class="text-muted" data-abc="true">product type</a>
+                                </div>
+
+ <h3 class="mb-0 font-weight-semibold">PRICE</h3>
+
+             <div>
+             (star grade)
+             <i class="fa fa-star star"></i>
+            <i class="fa fa-star star"></i>
+             <i class="fa fa-star star"></i>
+             <i class="fa fa-star star"></i>
+              </div>
+
+    <div class="text-muted mb-3">34 reviews</div>
+
+    <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to
+                   cart</button>
+
+
+             </div>
+
+
+           </div>
+       
+\end{verbatim}
+\\
+\\
+\\
+\\
+\section{Sonuç}
+\\
+\\
+Frontend Dosyalar:\\ \\
+    \includegraphics[width=9 cm,height=5 cm]{ek2.PNG}\\\\ \\
+    \\ \\ \\
+    
+    Product Card:\\
+    \\
+    \\
+    \includegraphics[width=9 cm,height=10 cm]{pcard.PNG}\\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    
+Veritabanı Tablolar:\\ \\
+    \includegraphics[width=9 cm,height=8 cm]{vt1.jpg}\\\\ \\
+    \\ \\ \\
+   
+   \includegraphics[width=10 cm,height=9 cm]{vt2.jpg}\\\\ \\ 
+    
+   
+   
+   \\
+   \\
+   
+   \\ \\
+\includegraphics[width=9 cm,height= 8cm]{vt3.jpg}\\ \\ \\ \\
+     \\ \\
+     
+  
+    
+\includegraphics[width=12 cm,height=10 cm]{vt4.jpg}\\ \\\\\\
+
+\\
+\\
+\\
+\\
+\\
+\\
+     
+     
+    
+     
+     
+     \\
+       
+
+
+
+
+\section{Kaynakça}
+           HTML ve CSS için;\\
+           -https://www.w3schools.com/\\
+            - en.wikipedia.org/wiki/\\
+            - https://www.youtube.com/c/PROTOTURKCOM\\
+              web scrape:
+              https://www.webscrapingapi.com/java-web-scraping
+              Genel Sorunlar için;\\
+             -stackoverflow.com\\
+              -theprogrammershangout.com\\
+             LaTeX Raporu hazırlamak için gerekli ekipman ve bilgiler;\\
+              - www.overleaf.com\\\\
+\end{document}
+ 

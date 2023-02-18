@@ -1,0 +1,64 @@
+body{
+
+    background-size: 100%;
+}
+.panel-kutu{
+    width: 25%;
+     height: 60%;
+     background: rgb(0,0,0,.5);
+     color: #f1f1f1;
+     font-family : sans-serif;
+     left: 50%;
+top: 50%;
+position : absolute;
+transform : translate(-50%,-50%);
+border-radius: 2px;
+padding: 1%;
+
+
+}
+.panel-kutu h2 
+{
+    text-align: center;
+    color: #FC6;
+    margin-top: 15%;
+}
+.panel-kutu p{
+    font-family : sans-serif;
+    color:#FC6;
+}
+.panel-kutu input{
+width : 97%;
+height: 25px;
+padding: 3px;
+
+}
+.panel-kutu input[type="text"]
+.panel-kutu input[type="password"]
+{
+ border: none;
+ border-bottom: 1px solid #ccc;
+ background: transparent;   
+outline: none;
+height :30px;
+color: #fff;
+font-size:16px;
+}
+::placeholder{
+    color:rgb(255, 255, 255,.5)
+}
+.panel-kutu input[type="submit"]{
+    border:none;
+    outline:none;
+    height:40px;
+    color:#f1f1f1;
+    font-size: 16px;
+    background: #f10fff;
+    margin-top :10px;
+    margin-bottom:10px;
+    width: 100%;
+    cursor: pointer;
+    border-radius:20px;
+
+
+}
